@@ -1,0 +1,664 @@
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        @media only screen and (max-width: 600px){
+            #calc-tool-heading-div {
+            /* width: 70%; */
+            margin: 0 10%;
+            margin: auto;
+            justify-content: center;
+            padding: 5% 0;
+
+        }
+
+        #heading-choose-freezer {
+            font-family: 'LindeDaxOffice';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 32px;
+            line-height: 30px;
+            color: #00A0E1;
+            text-align: center;
+        }
+
+        #heading-two-freezer {
+            font-family: 'LindeDaxOffice';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 20px;
+            line-height: 30px;
+            color: #00305C;
+            text-align: center;
+        }
+
+        #products,
+        #products option,
+        #infeedtemp,
+        #outfeedtemp {
+            background: #FFFFFF;
+            border: 1px solid #DEE3EB;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 5px;
+            width: 100%;
+            padding: 10px;
+            padding-left: 2px;
+        }
+
+        #capacity,
+        #height,
+        #length,
+        #weight,
+        #width {
+            width: 100%;
+            padding: 10px;
+            background: #FFFFFF;
+            border: 1px solid #DEE3EB;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 5px;
+            padding-left: 2px;
+
+        }
+
+        #freezer-calculation-tool-parent {
+            font-family: 'LindeDaxOffice';
+            width: 90%;
+            margin: 0 auto;
+            justify-content: center;
+            margin-bottom: 5%;
+        }
+
+        #freezer-calculation-form {
+            width: 90%;
+            margin: auto;
+        }
+
+        #calculation-form-first-line,
+        #calculation-form-second-line,
+        #calculation-form-third-line,
+        #calculation-form-fourth-line,
+        #calculation-form-fifth-line {
+            /* margin-left: 100px; */
+            display: flex;
+            margin-bottom: 30px;
+            width: 100%
+        }
+
+        #calculation-form-product-widget,
+        #calculation-form-outfeed-widget,
+        #calculation-form-height-widget,
+        #calculation-form-width-widget {
+            width: 50%;
+        }
+
+        #calculation-form-email-widget,
+        #calculation-form-infeedTemp-widget,
+        #calculation-form-capacity-widget,
+        #calculation-form-length-widget,
+        #calculation-form-weight-widget {
+            margin-left: 30px;
+            width: 50%;
+        }
+
+
+        #calculateButton {
+            width: 100%;
+            padding: 15px;
+            background: #00A0E1;
+            border-radius: 5px;
+            color: #FFFFFF;
+            border: none;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        /* Results */
+        #answers {
+            margin: auto;
+            width: 90%;
+            margin-top: 2%;
+            display: block;
+            font-family: 'LindeDaxOffice';
+            margin-bottom: 5%;
+        }
+
+        #freezer-selection-div {
+            display: table-cell;
+            width: 100%;
+        }
+
+        #freezerselection {
+            width: 100%;
+            height: 230px;
+            background: rgba(76, 136, 178, 0.83);
+            border-radius: 10px;
+            padding: 2%;
+            color: white;
+            line-height: 3em;
+            /* display: none; */
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s linear 300ms, opacity 300ms;
+
+
+        }
+
+        #number-results-parent-div {
+
+            width: 100%;
+            margin-top: 20px;
+            margin: auto;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s ease-in 0.6s, opacity 0.75s;
+
+        }
+
+        #number-of-prd-div,
+        #print-prd-div,
+        #nitrogen-consum-perh-div,
+        #haveto-remove-div,
+        #production-pertime-div {
+            padding: 1%;
+            width: 50%;
+            display: flex;
+            /* display: none; */
+        }
+
+        #nitrogen-consumption-prhour,
+        #Number-products-pr-hour,
+        #haveto-remove,
+        #print-product,
+        #production-per-time {
+            margin-block-start: initial;
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 20px;
+            color: #00305c;
+
+        }
+
+        #result-boxes-div {
+            width: 40px;
+            height: 40px;
+            background: #FFDF4C;
+            border-radius: 5px;
+            margin-right: 1%;
+        }
+
+        }
+        @media only screen and (min-width: 600px){
+            #calc-tool-heading-div {
+            /* width: 70%; */
+            margin: 0 10%;
+            margin: auto;
+            justify-content: center;
+            padding: 5% 0;
+
+        }
+
+        #heading-choose-freezer {
+            font-family: 'LindeDaxOffice';
+            font-style: normal;
+            font-weight: 700;
+            font-size: 32px;
+            line-height: 30px;
+            color: #00A0E1;
+            text-align: center;
+        }
+
+        #heading-two-freezer {
+            font-family: 'LindeDaxOffice';
+            font-style: normal;
+            font-weight: 400;
+            font-size: 20px;
+            line-height: 30px;
+            color: #00305C;
+            text-align: center;
+        }
+
+        #products,
+        #products option,
+        #infeedtemp,
+        #outfeedtemp {
+            background: #FFFFFF;
+            border: 1px solid #DEE3EB;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 5px;
+            width: 100%;
+            height: 50px;
+            padding-left: 5px;
+        }
+
+        #capacity,
+        #height,
+        #length,
+        #weight,
+        #width {
+            width: 100%;
+            height: 50px;
+            background: #FFFFFF;
+            border: 1px solid #DEE3EB;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 5px;
+            padding-left: 5px;
+
+        }
+
+        #freezer-calculation-tool-parent {
+            font-family: 'LindeDaxOffice';
+            width: 90%;
+            margin: 0 auto;
+            justify-content: center;
+            margin-bottom: 5%;
+        }
+
+        #freezer-calculation-form {
+            width: 90%;
+            margin: auto;
+        }
+
+        #calculation-form-first-line,
+        #calculation-form-second-line,
+        #calculation-form-third-line,
+        #calculation-form-fourth-line,
+        #calculation-form-fifth-line {
+            /* margin-left: 100px; */
+            display: flex;
+            margin-bottom: 30px;
+            width: 100%
+        }
+
+        #calculation-form-product-widget,
+        #calculation-form-outfeed-widget,
+        #calculation-form-height-widget,
+        #calculation-form-width-widget {
+            width: 50%;
+        }
+
+        #calculation-form-email-widget,
+        #calculation-form-infeedTemp-widget,
+        #calculation-form-capacity-widget,
+        #calculation-form-length-widget,
+        #calculation-form-weight-widget {
+            margin-left: 30px;
+            width: 50%;
+        }
+
+        #freezer-banner-shrimp {
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 20px;
+            width: 439px;
+            height: 567px;
+            object-fit: cover;
+        }
+
+        /* 
+        #calculate-button {
+            width: 87%;
+        } */
+
+        #calculateButton {
+            width: 300px;
+            padding: 15px;
+            background: #00A0E1;
+            border-radius: 5px;
+            color: #FFFFFF;
+            border: none;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        /* Results */
+        #answers {
+            margin: auto;
+            width: 80%;
+            margin-top: 2%;
+            display: flex;
+            font-family: 'LindeDaxOffice';
+            margin-bottom: 5%;
+        }
+
+        #freezer-selection-div {
+            display: table-cell;
+            width: 50%;
+        }
+
+        #freezerselection {
+            width: 100%;
+            height: 230px;
+            background: rgba(76, 136, 178, 0.83);
+            border-radius: 10px;
+            padding: 2%;
+            color: white;
+            line-height: 3em;
+            /* display: none; */
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s linear 300ms, opacity 300ms;
+
+
+        }
+
+        #number-results-parent-div {
+
+            width: 50%;
+            margin: auto;
+            visibility: hidden;
+            margin-left: 20px;
+            opacity: 0;
+            transition: visibility 0s ease-in 0.6s, opacity 0.75s;
+
+        }
+
+        #number-of-prd-div,
+        #print-prd-div,
+        #nitrogen-consum-perh-div,
+        #haveto-remove-div,
+        #production-pertime-div {
+            padding: 1%;
+            width: 300px;
+            display: flex;
+            /* display: none; */
+        }
+
+        #nitrogen-consumption-prhour,
+        #Number-products-pr-hour,
+        #haveto-remove,
+        #print-product,
+        #production-per-time {
+            margin-block-start: initial;
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 20px;
+            color: #00305c;
+
+        }
+
+        #result-boxes-div {
+            width: 40px;
+            height: 40px;
+            background: #FFDF4C;
+            border-radius: 5px;
+            margin-right: 1%;
+        }
+
+        #left-side-freezer-banner {
+            width: 60%;
+        }
+        }
+        
+
+        #see-results-under {
+            color: #00305c;
+            display: none;
+        }
+
+        #see-results-under h3 {
+            font-weight: 700;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="freezer-calculation-tool-parent">
+        <div id="calc-tool-heading-div">
+            <h2 id="heading-choose-freezer">Beregning af køle-/frysebehov</h2>
+            <h1 id="heading-two-freezer">Indtast dine produktdata herunder. Resultatet vil pege på mulige frysetyper
+                og
+                danne grundlag for den bedste rådgivning omkring dit nitrogenkøle-/frysebehov.</h1>
+        </div>
+        <!-- <img id="freezer-banner-shrimp"
+            src="https://static.prd.echannel.linde.com/wcsstore/DK_REN_Industrial_Gas_Store/images/Linde_Shrimp_portraitHi.jpg" /> -->
+        <div id="freezer-calculation-form">
+
+            <!--Form - Second (2) line-->
+
+            <div id="calculation-form-second-line">
+                <div id="calculation-form-product-widget">
+                    <p>Vælg produkttype:</p>
+                    <select name="product" id="products">
+                        <option disabled hidden selected>Produkttype</option>
+                        <option value="C">Kød/kylling</option>
+                        <option value="D">Brød</option>
+                        <option value="E">Fisk</option>
+                        <option value="F">Planteprodukt</option>
+                    </select>
+                </div>
+                <div id="calculation-form-infeedTemp-widget">
+                    <p>Vælg indgangstemperatur:</p>
+                    <select name="infeed" id="infeedtemp">
+                        <option disabled hidden selected>Indgangstemperatur</option>
+                        <option value="G">Kold +2°, brød +30°</option>
+                        <option value="H">Varm +85-90°</option>
+                    </select>
+                </div>
+            </div>
+
+            <!--Form - Third (3) line-->
+
+            <div id="calculation-form-third-line">
+                <div id="calculation-form-outfeed-widget">
+                    <p>Vælg udgangstemperatur:</p>
+                    <select name="outfeedtemp" id="outfeedtemp">
+                        <option disabled hidden selected>Udgangstemperatur</option>
+                        <option value="A">Frysning -18°</option>
+                        <option value="B">Køling +2°</option>
+                    </select>
+                </div>
+                <div id="calculation-form-capacity-widget">
+                    <p>Ønsket kapacitet:</p>
+                    <input type="number" id="capacity" name="capacity" placeholder="kg" required>
+                </div>
+            </div>
+            <!--Form - Fourth (4) line-->
+            <div id="calculation-form-fourth-line">
+                <div id="calculation-form-height-widget">
+                    <p>Produkthøjde:</p>
+                    <input type="number" id="height" name="height" placeholder="mm" required>
+                </div>
+                <div id="calculation-form-length-widget">
+                    <p>Produktlængde:</p>
+                    <input type="number" id="length" name="length" placeholder="mm" required>
+                </div>
+            </div>
+            <!--Form - Fifth (5) line-->
+            <div id="calculation-form-fifth-line">
+                <div id="calculation-form-width-widget">
+                    <p>Produktbredde:</p>
+                    <input type="number" id="width" name="width" placeholder="mm" required>
+                </div>
+                <div id="calculation-form-weight-widget">
+                    <p>Produktvægt pr. enhed:</p>
+                    <input type="number" id="weight" name="weight" placeholder="gram" required>
+                </div>
+            </div>
+
+            <div id="calculate-button">
+                <button onclick="displayproduct()" id="calculateButton">Beregn</button>
+            </div>
+
+            <br><br>
+
+            <div id="see-results-under">
+                <h3>Se resultat herunder</h3>
+            </div>
+        </div>
+
+    </div>
+
+    <div id="answers">
+        <div id="freezer-selection-div">
+            <div id="freezerselection">
+                <h3>Anbefaling af følgende frysertyper</h3>
+                <p id="typesOfFrezzer"></p>
+            </div>
+        </div>
+        <div id="number-results-parent-div">
+            <div style="display: flex; ">
+                <div id="print-prd-div">
+                    <div id="result-boxes-div">
+
+                    </div>
+
+                    <p id="print-product"> </p>
+                </div>
+                <div id="number-of-prd-div">
+                    <div id="result-boxes-div">
+                    </div>
+                    <p id="Number-products-pr-hour"></p>
+                </div>
+
+            </div>
+
+            <div style="display: flex;">
+                <div id="haveto-remove-div">
+                    <div id="result-boxes-div">
+                    </div>
+
+                    <p id="haveto-remove"></p>
+                </div>
+                <div id="production-pertime-div">
+                    <div id="result-boxes-div">
+                    </div>
+                    <p id="production-per-time"></p>
+
+                </div>
+
+            </div>
+            <div style="display: flex;">
+
+                <div id="nitrogen-consum-perh-div">
+                    <div id="result-boxes-div">
+                    </div>
+
+                    <p id="nitrogen-consumption-prhour"></p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+<script>
+    let kcal = 0;
+    let nitrogen = 0;
+
+    function displayproduct() {
+        //show results
+        document.getElementById("see-results-under").style.display = "block";
+
+        //freezing or cooling
+        let choosetemp = document.getElementById("outfeedtemp");
+        let resultOne = choosetemp.value;
+        //which product was chosen?
+        let products = document.getElementById("products");
+        let resultTwo = products.value;
+        //cold or hot?
+        let infeedtemp = document.getElementById("infeedtemp");
+        let resultThree = infeedtemp.value;
+
+        const productWidth = + document.getElementById("width").value;
+        const productLength = + document.getElementById("length").value;
+        const productWeight = + document.getElementById("weight").value;
+        const productHeight = + document.getElementById("height").value;
+        const capacity = + document.getElementById("capacity").value;
+
+
+        //sum up as: outfeed + product + infeedtemp 
+        // calculate calories and Nitrogen per each combination
+        // Calculate two outputs for customer: 1) You have to remove and 2) Theoritical Nitrogen...
+        let haveToRemove;
+        let haveToRemoveP = document.getElementById("haveto-remove");
+        let nitrogenConsumption = document.getElementById("nitrogen-consumption-prhour");
+        let nitrogenCalc;
+        let productPrint = productWidth * productLength;
+        document.getElementById("print-product").innerHTML = "Produktareal" + "<br>" + " <span style='font-weight: 600;font-size: 18px;line-height: 20px;color: #00A0E1;'> " + productPrint + " mm2</span>";
+
+        let numberOfPrHour = (capacity * 1000) / productWeight;
+        document.getElementById("Number-products-pr-hour").innerHTML = "Antal produkter " + "<br>" + " <span style='font-weight: 600;font-size: 18px;line-height: 20px;color: #00A0E1;'> " + numberOfPrHour + " pr. time</span>";
+
+        // New result: priduction per time !!!
+        let prodPerTime;
+        prodPerTime = numberOfPrHour * productWeight;
+        let prodPerTimeP = document.getElementById("production-per-time");
+        prodPerTimeP.innerHTML = "Produktion per time" + "<br>" + "<span style='font-weight: 600;font-size: 18px;line-height: 20px;color: #00A0E1;'> " + prodPerTime + " pr. time </span>";
+        // End here
+
+
+        //Result boxes make it visible
+        let resultBoxes = document.getElementById("number-results-parent-div");
+        resultBoxes.style.visibility = "visible";
+        resultBoxes.style.opacity = "1";
+        resultBoxes.style.transition = "visibility 0.7s ease in-out 0s, opacity 2s";
+        //freezer types div - make it visible after button click
+        let freezerselection = document.getElementById("freezerselection");
+        freezerselection.style.visibility = "visible";
+        freezerselection.style.opacity = "1";
+        freezerselection.style.transition = "visibility 0s linear 0s, opacity 0.75s";
+        if (capacity < 800 && productHeight < 5) {
+            document.getElementById("typesOfFrezzer").innerHTML = "&#9652; CRYOLINE CW Tunnel  <a href='https://www.linde-gas.dk/da/products_ren/food_freezing/cryoline_cw/index.html' target='_blank' style='color: white; font-size: bold'>- læs mere og se datablad &#11106;</a>";
+
+        }
+        if (capacity < 800) {
+            document.getElementById("typesOfFrezzer").innerHTML = "&#9652; CRYOLINE MT Tunnel <a href='https://www.linde-gas.dk/da/products_ren/food_freezing/cryoline_mt/index.html' target='_blank' style='color: white; font-size: bold'>- læs mere og se datablad &#11106;</a>" + "<p>&#9652; CRYOLINE CW Tunnel <a href='https://www.linde-gas.dk/da/products_ren/food_freezing/cryoline_cw/index.html' target='_blank' style='color: white; font-size: bold'>- læs mere og se datablad &#11106;	</a></p>";
+
+        }
+        if (capacity >= 800 && capacity < 1000 && productLength > 300) {
+            document.getElementById("typesOfFrezzer").innerHTML = "&#9652; CRYOLINE MT Tunnel <a href='https://www.linde-gas.dk/da/products_ren/food_freezing/cryoline_mt/index.html' target='_blank' style='color: white; font-size: bold'>- læs mere og se datablad &#11106;</a>" + "<p>&#9652; CRYOLINE CW Tunnel <a href='https://www.linde-gas.dk/da/products_ren/food_freezing/cryoline_cw/index.html' target='_blank' style='color: white; font-size: bold'>- læs mere og se datablad &#11106;</a></p>";
+        }
+        if (capacity > 1000) {
+            document.getElementById("typesOfFrezzer").innerHTML = "&#9652; CRYOLINE CS Spiral <a href='https://www.linde-gas.dk/da/products_ren/food_freezing/cryoline_cs/index.html' target='_blank' style='color: white; font-size: bold'>- læs mere og se datablad &#11106;</a>" + "<p>&#9652; CRYOLINE XF Spiral <a href='https://www.linde-gas.dk/da/products_ren/food_freezing/cryoline_xf/index.html' target='_blank' style='color: white; font-size: bold'>- læs mere og se datablad &#11106;</a></p>" + "<p>&#9652; CRYOLINE CX Spiral <a href='https://www.linde-gas.dk/da/products_ren/food_freezing/cryoline_cx600/index.html' target='_blank' style='color: white; font-size: bold'>- læs mere og se datablad &#11106;</a></p>";
+        }
+        if (capacity >= 800 && capacity < 1000 && productLength <= 300) {
+            document.getElementById("typesOfFrezzer").innerHTML = "&#9652; CRYOLINE CS Spiral <a href='https://www.linde-gas.dk/da/products_ren/food_freezing/cryoline_cs/index.html' target='_blank' style='color: white; font-size: bold'>- læs mere og se datablad &#11106;</a>" + "<p>&#9652; CRYOLINE CW Tunnel <a href='https://www.linde-gas.dk/da/products_ren/food_freezing/cryoline_cw/index.html' target='_blank' style='color: white; font-size: bold'>- læs mere og se datablad &#11106;</a></p>" + "<p>&#9652; CRYOLINE MT Tunnel <a href='https://www.linde-gas.dk/da/products_ren/food_freezing/cryoline_mt/index.html' target='_blank' style='color: white; font-size: bold'>- læs mere og se datablad &#11106;</a> </p>";
+        }
+
+        let customerInput = resultOne.valueOf() + ", " + resultTwo.valueOf() + ", " + resultThree.valueOf();
+
+        const ProductFeatures = [{ name: 'A, C, G' }, { name: 'A, C, H' }, { name: 'B, C, G' }, { name: 'B, C, H' },
+        { name: 'A, D, G' }, { name: 'A, D, H' }, { name: 'B, D, G' }, { name: 'B, D, H' }, { name: 'A, E, G' },
+        { name: 'A, E, H' }, { name: 'B, E, G' }, { name: 'B, E, H' }, { name: 'A, F, G' }, { name: 'A, F, H' }, { name: 'B, F, G' }, { name: 'B, F, H' }];
+        const caloriesTable = {
+            kcalNitroACG: [{ calories: 68, nitrogen: 0.9 }],
+            kcalNitroACH: [{ calories: 143, nitrogen: 1.8 }],
+            kcalNitroBCG: [{ calories: 68, nitrogen: 0.45 }],
+            kcalNitroBCH: [{ calories: 143, nitrogen: 0.9 }],
+            kcalNitroADG: [{ calories: 45, nitrogen: 0.6 }],
+            kcalNitroADH: [{ calories: 76, nitrogen: 0.9 }],
+            kcalNitroBDG: [{ calories: 45, nitrogen: 0.3 }],
+            kcalNitroBDH: [{ calories: 76, nitrogen: 0.45 }],
+            kcalNitroAEG: [{ calories: 77, nitrogen: 1 }],
+            kcalNitroAEH: [{ calories: 151, nitrogen: 1.9 }],
+            kcalNitroBEG: [{ calories: 77, nitrogen: 0.5 }],
+            kcalNitroBEH: [{ calories: 151, nitrogen: 1 }],
+            kcalNitroAFG: [{ calories: 77, nitrogen: 1 }],
+            kcalNitroAFH: [{ calories: 151, nitrogen: 1.9 }],
+            kcalNitroBFG: [{ calories: 77, nitrogen: 0.5 }],
+            kcalNitroBFH: [{ calories: 151, nitrogen: 1 }]
+
+        }
+
+        let indexOfProduct = 0;
+        const index = ProductFeatures.findIndex(element => {
+            if (element.name === customerInput) {
+                indexOfProduct = ProductFeatures.indexOf(element);
+                return true;
+            }
+            return false;
+
+        });
+        let objectValuecalc = Object.values(caloriesTable)[indexOfProduct];
+        haveToRemove = objectValuecalc[0].calories * capacity;
+        haveToRemoveP.innerHTML = "Processen kræver at der fjernes " + "<br>" + " <span style='font-weight: 600;font-size: 18px;line-height: 20px;color: #00A0E1;'> " + haveToRemove + " Kcal pr. time </span>";
+        nitrogenCalc = objectValuecalc[0].nitrogen * capacity;
+        nitrogenConsumption.innerHTML = "Teoretisk forbrug af nitrogen" + "<br>" + " <span style='font-weight: 600;font-size: 18px;line-height: 20px;color: #00A0E1;'> " + nitrogenCalc + " kg pr. time</span>";
+
+    }
+
+</script>
+
+</html>
